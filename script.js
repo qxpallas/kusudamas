@@ -55,3 +55,20 @@ lightbox.addEventListener('touchend', e => {
     if (touchStartX - touchEndX > 50) showNext(); // Swipe Left
     if (touchEndX - touchStartX > 50) showPrev(); // Swipe Right
 });
+
+// Intersection Observer for the "Magical Reveal"
+const revealOptions = {
+    threshold: 0.15
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+        }
+    });
+}, revealOptions);
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+    observer.observe(item);
+});
